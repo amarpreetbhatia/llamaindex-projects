@@ -23,8 +23,12 @@ export default function ChatSection() {
     },
     onError: (error: unknown) => {
       if (!(error instanceof Error)) throw error;
+      if ((error instanceof TypeError)){
+        alert(`Some issue with vercel Env`);
+      }else{
       const message = JSON.parse(error.message);
-      alert(message.detail);
+      alert(`Contact Amarpreet, Open API KEY need to provide`);
+    }
     },
   });
 
