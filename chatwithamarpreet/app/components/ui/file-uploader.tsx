@@ -52,13 +52,6 @@ export default function FileUploader({
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     alert(`Contact Amarpreet, File Upload is disabled`);
     return;
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    await handleUpload(file);
-    resetInput();
-    setUploading(false);
   };
 
   const handleUpload = async (file: File) => {
