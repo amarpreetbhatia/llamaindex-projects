@@ -50,6 +50,8 @@ export default function FileUploader({
   };
 
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    alert(`Contact Amarpreet, File Upload is disabled`);
+    return;
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -84,7 +86,7 @@ export default function FileUploader({
         style={{ display: "none" }}
         onChange={onFileChange}
         accept={allowedExtensions?.join(",")}
-        disabled={config?.disabled || uploading}
+        disabled={true}
       />
       <label
         htmlFor={inputId}
