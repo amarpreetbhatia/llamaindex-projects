@@ -17,6 +17,7 @@ import { HuggingFaceEmbedding } from "llamaindex/embeddings/HuggingFaceEmbedding
 import { OllamaEmbedding } from "llamaindex/embeddings/OllamaEmbedding";
 import { ALL_AVAILABLE_ANTHROPIC_MODELS } from "llamaindex/llm/anthropic";
 import { Ollama } from "llamaindex/llm/ollama";
+import { OpenRouterLLM, OpenRouterEmbedding } from "./openrouter";
 
 const CHUNK_SIZE = 512;
 const CHUNK_OVERLAP = 20;
@@ -47,6 +48,9 @@ export const initSettings = async () => {
       break;
     case "azure-openai":
       initAzureOpenAI();
+      break;
+    case "openrouter":
+      initOpenRouter();
       break;
     default:
       initOpenAI();
@@ -181,5 +185,24 @@ function initMistralAI() {
   });
   Settings.embedModel = new MistralAIEmbedding({
     model: process.env.EMBEDDING_MODEL as MistralAIEmbeddingModelType,
+  });
+}
+
+function initOpenRouter() {
+  if (!process.env.OPENROUTER_API_KEY) {
+    throw new Error("OPENROUTER_API_KEY environment variable is not set");
+  }
+
+  Settings.llm = new OpenRouterLLM({
+    apiKey: process.env.OPENROUTER_API_KEY,
+    model: process.env.MODEL ?? "openai/gpt-3.5-turbo",
+    maxTokens: process.env.LLM_MAX_TOKENS
+      ? Number(process.env.LLM_MAX_TOKENS)
+      : 4096,
+  });
+
+  Settings.embedModel = new OpenRouterEmbedding({
+    apiKey: process.env.OPENROUTER_API_KEY,
+    model: process.env.EMBEDDING_MODEL ?? "sentence-transformers/all-MiniLM-L6-v2",
   });
 }

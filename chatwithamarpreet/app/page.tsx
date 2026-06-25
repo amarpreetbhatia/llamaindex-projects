@@ -1,15 +1,17 @@
-import Header from "@/app/components/header";
-import ChatSection from "./components/chat-section";
+import { ProfessionalHeader } from "@/app/components/professional-header";
+import { ProfileHero } from "@/app/components/profile/profile-hero";
+import { PortfolioContent } from "@/app/components/profile/portfolio-content";
+import { FloatingChatWidget } from "@/app/components/floating-chat-widget";
+import { Footer } from "@/app/components/footer";
 
 export default function Home() {
   return (
-    <main className="h-screen w-screen flex justify-center items-center background-gradient">
-      <div className="space-y-2 lg:space-y-10 w-[90%] lg:w-[60rem]">
-        <Header />
-        <div className="h-[65vh] flex">
-          <ChatSection />
-        </div>
-      </div>
+    <main className="min-h-screen bg-white">
+      <ProfessionalHeader />
+      <ProfileHero />
+      <PortfolioContent />
+      <Footer />
+      <FloatingChatWidget />
     </main>
   );
 }
